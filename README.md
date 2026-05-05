@@ -4,7 +4,7 @@ LLM-based multi-agent Mars exploration simulation
 # 🚀 Mars LLM Simulation
 
 LLMエージェントによる火星探査シミュレーション。
-チームに犬（Pochi）を入れた場合と化学者（Joe）を入れた場合の
+チームに犬（ワンコ、Pochi）を入れた場合と化学者（Joe）を入れた場合の
 行動・ストレス・探査効率を比較。
 
 ## 実験概要
@@ -19,7 +19,9 @@ LLMエージェントによる火星探査シミュレーション。
 - 固着パターンはLLMエージェントの普遍的特性
 
 ## 実行方法
-\`\`\`bash
+bash
+
 pip install -r requirements.txt
+
 python main.py
-\`\`\`
+
