@@ -1,0 +1,129 @@
+# Simulation Configuration
+
+# Simulation Parameters
+simulation:
+  duration: 30  # Number of simulation steps
+  half_space_size: 70  # Half of grid size (agents can move in range -25 to +25)
+  
+# Agent Parameters
+agents:
+  num_agents: 9
+  communication_radius: 20  # Radius for agent communication
+  memory_limit: 20  # Maximum number of memory entries to store
+  memory_size: 5  # Number of recent memory entries used in LLM prompt
+  message_history_limit: 10  # Maximum number of received messages to store
+  message_context_size: 3  # Number of recent messages used in LLM prompt
+  
+# Place Parameters (multiple places)
+# Each place must have a type: "bar", "cafe", "library", etc.
+# type is a required field
+places:
+  - name: "habitat"
+    type: "base"
+    center_x: 0
+    center_y: 0
+    half_size: 5
+    capacity: 8
+
+  - name: "power_plant"
+    type: "life_support"
+    center_x: -8
+    center_y: 0
+    half_size: 3
+    capacity: 3
+
+  - name: "greenhouse"
+    type: "food_production"
+    center_x: 8
+    center_y: 0
+    half_size: 4
+    capacity: 4
+
+  - name: "lab"
+    type: "science"
+    center_x: 0
+    center_y: 10
+    half_size: 4
+    capacity: 4
+
+  - name: "rocket_repair_base"
+    type: "maintenance"
+    center_x: 0
+    center_y: -10
+    half_size: 4
+    capacity: 4
+
+  # --- 中距離探査 ---
+  - name: "site_A"
+    type: "exploration_site"
+    center_x: -38
+    center_y: 35
+    half_size: 3
+    capacity: 3
+
+  - name: "site_B"
+    type: "exploration_site"
+    center_x: 25
+    center_y: 36
+    half_size: 3
+    capacity: 3
+
+  - name: "site_C"
+    type: "exploration_site"
+    center_x: -38
+    center_y: -35
+    half_size: 3
+    capacity: 3
+
+  # --- 遠距離で途中に崖あり（別格） ---
+  - name: "site_D"
+    type: "exploration_site"
+    center_x: 45
+    center_y: -42
+    half_size: 3
+    capacity: 2
+  
+# LLM Parameters
+llm:
+  model: "gpt-4o-mini"
+  base_url: ""
+  temperature: 0.7
+  max_tokens: 200
+  # Anti-repetition parameters
+  repeat_penalty: 1.1  # Repeat penalty (1.0-1.2 range, adjust for fine-tuning)
+  repeat_last_n: 128  # Range to check for repetition (longer = stronger against loops)
+  min_p: 0.05  # Min-P (cuts noise while preserving intelligence)
+  
+# Fire Event Parameters (multiple fires supported)
+# Each fire can specify center_x/center_y for fixed position, or omit for random position
+fires:
+  - name: power_plant_fire
+    start_step: 20
+    center_x: -8      # power_plant の center_x に合わせる
+    center_y: 0      # power_plant の center_y に合わせる
+    intensity: 0.9
+    radius: 10
+  - name: "fire_1"
+    start_step: 35
+    intensity: 0.8
+    radius: 15
+    center_x: 15         # Fire position X (omit for random)
+    center_y: 10          # Fire position Y (omit for random)
+  - name: "fire_2"
+    start_step: 70
+    intensity: 0.5
+    radius: 8
+    center_x: -10
+    center_y: -10
+
+# Visualization Parameters
+visualization:
+  save_frames: true
+  frame_interval: 1  # Save frame every N steps
+  output_dir: "output"
+  
+# Logging
+logging:
+  level: "INFO"
+  log_file: "simulation.log"
+
